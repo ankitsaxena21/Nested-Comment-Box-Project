@@ -25,6 +25,16 @@ let deleteComments = () => {
 	localStorage.clear();
 	location.reload(); 
 };
+
+let deleteComment = (allComments, newCommentId) => {
+	for (let i in allComments) {
+		if (allComments[i].commentId === newCommentId) {
+			allComments.splice(i, 1);
+		} else if (allComments[i].childComments.length > 0) {
+			deleteComment(allComments[i].childComments, newCommentId);
+		}
+	}
+};
 // create a reply option
 let createReplyButtonCommentView = (id, operationType) => {
 	let div = document.createElement("div");
